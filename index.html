@@ -9,6 +9,7 @@
 </head>
 <body>
     <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webvr-polyfill@0.10.10/build/webvr-polyfill.min.js"></script>
     <!-- Dodajemy WebVR polyfill dla obsługi starszych przeglądarek i urządzeń -->
     <script src="https://cdn.jsdelivr.net/npm/webvr-polyfill@0.10.10/build/webvr-polyfill.min.js"></script>
     <script>
@@ -25,13 +26,25 @@ function init() {
     // Ustawienie renderera
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.vr.enabled = true;
     document.body.appendChild(renderer.domElement);
 
+    
     // Dodanie kostki
     let geometry = new THREE.BoxGeometry(1, 1, 1);
     let material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
+
+    if (navigator.getVRDisplays) {
+    navigator.getVRDisplays().then(displays => {
+        if (displays.length > 0) {
+            renderer.vr.setDevice(displays[0]);
+            document.body.appendChild(WEBVR.createButton(renderer));
+        }
+    });
+}
+
 
     // Uruchomienie animacji
     animate();
