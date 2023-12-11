@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prosta Kostka 3D w VR</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://threejs.org/build/three.js"></script>
+    <!-- Dodajemy WebVR polyfill dla obsługi starszych przeglądarek i urządzeń -->
+    <script src="https://cdn.jsdelivr.net/npm/webvr-polyfill@0.10.10/build/webvr-polyfill.min.js"></script>
+    <script>
+        let scene, camera, renderer, cube;
+
+function init() {
+    // Inicjalizacja sceny
+    scene = new THREE.Scene();
+
+    // Ustawienie kamery
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    // Ustawienie renderera
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Dodanie kostki
+    let geometry = new THREE.BoxGeometry(1, 1, 1);
+    let material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Uruchomienie animacji
+    animate();
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    // Obracanie kostki
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+}
+
+// Obsługa zmiany rozmiaru okna
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+});
+
+init();
+
+    </script>
+</body>
+</html>
