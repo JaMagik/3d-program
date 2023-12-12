@@ -4,53 +4,55 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 </head>
 <body>
-    <a-scene>
+    <a-scene cursor="rayOrigin: mouse">
         <!-- Ustawienie tła i podłogi -->
-        <a-sky src="sky.jpeg"></a-sky>
-
-        <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#FFFFFF"></a-plane>
-        <a-entity position="-10 0 -5" geometry="primitive: ring" material="color: blue" event-set__click="position: 0 1.6 0"></a-entity>
-        <a-camera position="0 1.6 0" animation__click="property: position; to: 5 1.6 -5; startEvents: click;"></a-camera>
-
+        <a-sky color="#ECECEC"></a-sky>
+        <a-plane position="0 0 0" rotation="-90 0 0" width="500" height="500" color="#7BC8A4"></a-plane>
 
         <!-- Sekcja zasobów -->
         <a-assets>
             <a-asset-item id="solar-panel-model" src="Panel.gltf"></a-asset-item>
             <a-asset-item id="heat-pump-model" src="Pompa.gltf"></a-asset-item>
-            <!-- Dodaj tutaj inne modele -->
         </a-assets>
 
-        <!-- Sekcja energetyczna -->
-        <a-entity id="sekcja-energetyczna" position="-5 0 -5">
-            <!-- Tutaj możesz dodać modele 3D, teksty i inne elementy -->
+        <!-- Punkty nawigacyjne -->
+        <a-ring id="goto-solar-panel" position="-50 0.5 -50" radius-inner="0.5" radius-outer="1" color="#29B6F6" event-set__click="_target: #cameraRig; _delay: 0; position: -50 1.6 -50"></a-ring>
+        <a-ring id="goto-heat-pump" position="50 0.5 -50" radius-inner="0.5" radius-outer="1" color="#FFC107" event-set__click="_target: #cameraRig; _delay: 0; position: 50 1.6 -50"></a-ring>
+
+        <!-- Modele -->
+        <a-entity gltf-model="#solar-panel-model" position="-50 0 -50" scale="0.1 0.1 0.1"></a-entity>
+        <a-entity gltf-model="#heat-pump-model" position="50 0 -50" scale="0.1 0.1 0.1"></a-entity>
+
+        <!-- Kamera i rig kamery dla nawigacji -->
+        <a-entity id="cameraRig">
+            <a-camera position="0 1.6 0" wasd-controls-enabled="true"></a-camera>
         </a-entity>
 
-        <!-- Sekcja termomodernizacji -->
-        <a-entity id="sekcja-termomodernizacji" position="5 0 -5">
-            <a-entity gltf-model="#heat-pump-model" scale="0.1 0.1 0.1"></a-entity>
-        </a-entity>
-
-        <!-- Sekcja fotowoltaiki z modelem panelu słonecznego -->
-        <a-entity id="sekcja-fotowoltaiki" position="-5 0 5">
-            <a-entity gltf-model="#solar-panel-model" scale="0.1 0.1 0.1"></a-entity>
-        </a-entity>
-
-        <!-- Sekcja oświetlenia -->
-        <a-entity id="sekcja-oswietlenia" position="5 0 5">
-            <!-- Tutaj możesz dodać modele 3D, teksty i inne elementy -->
-        </a-entity>
-
-        <!-- Galeria montaży -->
-        <a-entity id="galeria-montazy">
-            <!-- Tutaj możesz umieścić zdjęcia i inne media -->
-        </a-entity>
-
-        <!-- Kamera z kontrolami WASD umożliwiającymi poruszanie się -->
-        <a-camera position="0 1.6 0" wasd-controls-enabled="true"></a-camera>
-
-        <!-- Światło ambientowe i punktowe dla lepszej wizualizacji sceny -->
+        <!-- Światło -->
         <a-light type="ambient" color="#555"></a-light>
-        <a-light type="point" intensity="2" position="2 4 -4"></a-light>
+        <a-light type="point" intensity="2" position="0 4 0"></a-light>
     </a-scene>
+
+    <!-- Skrypt do obsługi kliknięcia -->
+    <script>
+        AFRAME.registerComponent('event-set', {
+            schema: {
+                _target: {type: 'selector'},
+                _delay: {type: 'number'},
+                position: {type: 'vec3'}
+            },
+            init: function () {
+                var data = this.data;
+                var el = this.el;
+                el.addEventListener('click', function () {
+                    setTimeout(function () {
+                        if(data._target){
+                            data._target.setAttribute('position', data.position);
+                        }
+                    }, data._delay);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
