@@ -9,31 +9,30 @@
         <a-sky color="#ECECEC"></a-sky>
         <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#FFFFFF"></a-plane>
 
-        <!-- Sekcja zasobów, gdzie definiujemy nasz model 3D -->
+        <!-- Sekcja zasobów -->
         <a-assets>
             <a-asset-item id="solar-panel-model" src="Panel.gltf"></a-asset-item>
-        </a-assets>
-        <a-assets>
             <a-asset-item id="heat-pump-model" src="Pompa.gltf"></a-asset-item>
+            <!-- Dodaj tutaj inne modele -->
         </a-assets>
 
         <!-- Sekcja energetyczna -->
-        <a-entity id="sekcja-energetyczna">
+        <a-entity id="sekcja-energetyczna" position="-5 0 -5">
             <!-- Tutaj możesz dodać modele 3D, teksty i inne elementy -->
         </a-entity>
 
         <!-- Sekcja termomodernizacji -->
-        <a-entity id="sekcja-termomodernizacji">
-            <a-entity gltf-model="#heat-pump-model" position="0 0.5 0" scale="0.1 0.1 0.1" rotation="0 0 0"></a-entity>
+        <a-entity id="sekcja-termomodernizacji" position="5 0 -5">
+            <a-entity gltf-model="#heat-pump-model" scale="0.1 0.1 0.1"></a-entity>
         </a-entity>
 
         <!-- Sekcja fotowoltaiki z modelem panelu słonecznego -->
-        <a-entity id="sekcja-fotowoltaiki">
-            <a-entity gltf-model="#solar-panel-model" position="0 0.5 0" scale="0.1 0.1 0.1" rotation="0 0 0"></a-entity>
+        <a-entity id="sekcja-fotowoltaiki" position="-5 0 5">
+            <a-entity gltf-model="#solar-panel-model" scale="0.1 0.1 0.1"></a-entity>
         </a-entity>
 
         <!-- Sekcja oświetlenia -->
-        <a-entity id="sekcja-oswietlenia">
+        <a-entity id="sekcja-oswietlenia" position="5 0 5">
             <!-- Tutaj możesz dodać modele 3D, teksty i inne elementy -->
         </a-entity>
 
@@ -42,8 +41,10 @@
             <!-- Tutaj możesz umieścić zdjęcia i inne media -->
         </a-entity>
 
-        <!-- Kamera i światło -->
-        <a-camera position="0 1.6 0"></a-camera>
+        <!-- Kamera z kontrolami WASD umożliwiającymi poruszanie się -->
+        <a-camera position="0 1.6 0" wasd-controls-enabled="true"></a-camera>
+
+        <!-- Światło ambientowe i punktowe dla lepszej wizualizacji sceny -->
         <a-light type="ambient" color="#555"></a-light>
         <a-light type="point" intensity="2" position="2 4 -4"></a-light>
     </a-scene>
