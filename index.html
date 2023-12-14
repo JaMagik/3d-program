@@ -17,7 +17,7 @@
         <!-- Sekcja zasobów -->
         <a-assets timeout="3600000">
             <a-asset-item id="solar-panel-model" src="Panel.gltf"></a-asset-item>
-            <video id="my-video" src="Christ1.mp4" autoplay loop muted></video>
+            <video id="my-video" src="Christ2.mp4" autoplay loop muted></video>
         </a-assets>
 
         <!-- Punkty nawigacyjne -->
@@ -25,10 +25,10 @@
         <a-ring position="50 0.5 -50" radius-inner="0.5" radius-outer="1" color="#FFC107" class="clickable"></a-ring>
 
         <!-- Model panelu słonecznego -->
-        <a-entity gltf-model="#solar-panel-model" position="-50 0 -50" scale="0.1 0.1 0.1"></a-entity>
+        <a-entity gltf-model="#solar-panel-model" position="50 0 50" scale="0.1 0.1 0.1"></a-entity>
         
         <!-- Wideo -->
-        <a-video src="#my-video" position="0 1.6 -4" rotation="0 0 0" width="16" height="16"></a-video>
+        <a-video src="#my-video" position="40 1.6 40" rotation="0 0 0" width="16" height="16"></a-video>
 
         <!-- Kamera i rig kamery dla nawigacji -->
         <a-entity id="cameraRig">
