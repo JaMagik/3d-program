@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.5.0/aframe.min.js"></script>
 
     <style>
     
@@ -44,7 +45,7 @@
     <script>
         // Dodajemy obsługę kliknięcia dla punktów nawigacyjnych
         document.querySelector('#playButton').addEventListener('click', function () {
-            var videoEntity = document.querySelector('#main-video');
+            var videoEntity = document.querySelector('#my-video');
             if (videoEntity) {
                 var video = videoEntity.components.material.data.src; // Uzyskanie źródła wideo
                 if (video) {
@@ -52,6 +53,34 @@
                 }
             }
         });
+        var cameraRig = document.getElementById('cameraRig');
+
+    // Funkcja do włączania/wyłączania kontroli kamery
+    function toggleCameraControls(enable) {
+        cameraRig.setAttribute('look-controls', 'enabled', enable);
+    }
+
+    // Obsługa kliknięcia przycisku play
+    document.querySelector('#playButton').addEventListener('click', function () {
+        var videoEntity = document.querySelector('#my-video');
+        if (videoEntity) {
+            var video = videoEntity.components.material.data.src;
+            if (video) {
+                video.play();
+                toggleCameraControls(true); // Włączenie kontroli kamery po kliknięciu
+            }
+        }
+    });
+
+    // Wyłączenie kontroli kamery, gdy kursor znajduje się nad przyciskiem
+    document.querySelector('#playButton').addEventListener('mouseenter', function() {
+        toggleCameraControls(false);
+    });
+
+    // Włączenie kontroli kamery, gdy kursor opuszcza przycisk
+    document.querySelector('#playButton').addEventListener('mouseleave', function() {
+        toggleCameraControls(true);
+    });
     </script>
 </body>
 </html>
