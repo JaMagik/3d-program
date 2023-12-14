@@ -2,7 +2,7 @@
 <html>
 <head>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.5.0/aframe.min.js"></script>
+
 
     <style>
     
@@ -17,7 +17,7 @@
         <!-- Sekcja zasobów -->
         <a-assets timeout="3600000">
             <a-asset-item id="solar-panel-model" src="Panel.gltf"></a-asset-item>
-            <video id="my-video" src="christ.mp4" autoplay loop muted></video>
+            <video id="my-video" src="Christ1.mp4" autoplay loop muted></video>
         </a-assets>
 
         <!-- Punkty nawigacyjne -->
@@ -28,14 +28,11 @@
         <a-entity gltf-model="#solar-panel-model" position="-50 0 -50" scale="0.1 0.1 0.1"></a-entity>
         
         <!-- Wideo -->
-        <a-video src="#my-video" position="0 1.6 -4" rotation="0 0 0" width="16" height="9"></a-video>
+        <a-video src="#my-video" position="0 1.6 -4" rotation="0 0 0" width="16" height="16"></a-video>
 
         <!-- Kamera i rig kamery dla nawigacji -->
         <a-entity id="cameraRig">
             <a-camera look-controls enabled="true" position="0 1.6 0"></a-camera>
-        </a-entity>
-        <a-entity id="playButton" geometry="primitive: plane; width: 2; height: 1" material="color: blue" position="0 1 -3" class="clickable">
-            <a-text value="Odtwórz" align="center" color="#FFF"></a-text>
         </a-entity>
         <!-- Światło -->
         <a-light type="ambient" color="#555"></a-light>
@@ -44,43 +41,40 @@
 
     <script>
         // Dodajemy obsługę kliknięcia dla punktów nawigacyjnych
-        document.querySelector('#playButton').addEventListener('click', function () {
-            var videoEntity = document.querySelector('#my-video');
-            if (videoEntity) {
-                var video = videoEntity.components.material.data.src; // Uzyskanie źródła wideo
-                if (video) {
-                    video.play(); // Odtwarzanie wideo
-                }
-            }
-        });
         var cameraRig = document.getElementById('cameraRig');
 
-    // Funkcja do włączania/wyłączania kontroli kamery
-    function toggleCameraControls(enable) {
-        cameraRig.setAttribute('look-controls', 'enabled', enable);
+// Funkcja do włączania/wyłączania kontroli kamery
+function toggleCameraControls(enable) {
+    cameraRig.setAttribute('look-controls', 'enabled', enable);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var videoEl = document.querySelector('#my-video');
+    if (videoEl) {
+        videoEl.play();
     }
+});
 
-    // Obsługa kliknięcia przycisku play
-    document.querySelector('#playButton').addEventListener('click', function () {
-        var videoEntity = document.querySelector('#my-video');
-        if (videoEntity) {
-            var video = videoEntity.components.material.data.src;
-            if (video) {
-                video.play();
-                toggleCameraControls(true); // Włączenie kontroli kamery po kliknięciu
-            }
-        }
-    });
-
-    // Wyłączenie kontroli kamery, gdy kursor znajduje się nad przyciskiem
-    document.querySelector('#playButton').addEventListener('mouseenter', function() {
-        toggleCameraControls(false);
-    });
-
-    // Włączenie kontroli kamery, gdy kursor opuszcza przycisk
-    document.querySelector('#playButton').addEventListener('mouseleave', function() {
+// Obsługa kliknięcia przycisku play
+document.querySelector('#playButton').addEventListener('click', function () {
+    var videoEl = document.querySelector('#my-video');
+    if (videoEl) {
+        videoEl.play();
         toggleCameraControls(true);
-    });
+    }
+});
+
+
+// Wyłączenie kontroli kamery, gdy kursor znajduje się nad przyciskiem
+document.querySelector('#playButton').addEventListener('mouseenter', function() {
+    toggleCameraControls(false);
+});
+
+// Włączenie kontroli kamery, gdy kursor opuszcza przycisk
+document.querySelector('#playButton').addEventListener('mouseleave', function() {
+    toggleCameraControls(true);
+});
+
     </script>
 </body>
 </html>
