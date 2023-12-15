@@ -18,6 +18,8 @@
         <a-assets timeout="3600000">
             <a-asset-item id="solar-panel-model" src="Panel.gltf"></a-asset-item>
             <video id="my-video" src="Christ2.mp4" autoplay loop muted></video>
+            <video id="second-video" src="Las1.mp4" autoplay loop muted></video>
+
         </a-assets>
 
         <!-- Punkty nawigacyjne -->
@@ -29,6 +31,9 @@
         
         <!-- Wideo -->
         <a-video src="#my-video" position="40 1.6 40" rotation="0 0 0" width="16" height="16"></a-video>
+
+        <a-video src="#second-video" position="10 1.6 40" rotation="0 0 0" width="16" height="16"></a-video>
+
 
         <!-- Kamera i rig kamery dla nawigacji -->
         <a-entity id="cameraRig">
@@ -50,6 +55,13 @@ function toggleCameraControls(enable) {
 
 document.addEventListener('DOMContentLoaded', function () {
     var videoEl = document.querySelector('#my-video');
+    if (videoEl) {
+        videoEl.play();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var videoEl = document.querySelector('#second-video');
     if (videoEl) {
         videoEl.play();
     }
