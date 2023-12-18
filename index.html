@@ -19,7 +19,7 @@
             <a-asset-item id="solar-panel-model" src="Panel.gltf"></a-asset-item>
             <video id="my-video" src="Christ2.mp4" autoplay loop muted></video>
             <video id="second-video" src="Las1.mp4" autoplay loop muted></video>
-
+            <img id="background-image" src="viev.jpg">
         </a-assets>
 
         <!-- Punkty nawigacyjne -->
@@ -30,14 +30,20 @@
         <a-entity gltf-model="#solar-panel-model" position="50 0 50" scale="0.1 0.1 0.1"></a-entity>
         
         <!-- Wideo -->
-        <a-video src="#my-video" position="40 1.6 40" rotation="0 0 0" width="16" height="16"></a-video>
-
-        <a-video src="#second-video" position="10 1.6 40" rotation="0 0 0" width="16" height="16"></a-video>
-
+        <a-video src="#my-video" position="0 1.6 20" rotation="0 180 0" width="16" height="9"></a-video>
+    <a-video src="#second-video" position="14.14 1.6 14.14" rotation="0 -135 0" width="16" height="9"></a-video>
+    <a-video src="#my-video" position="20 1.6 0" rotation="0 -90 0" width="16" height="9"></a-video>
+    <a-video src="#second-video" position="14.14 1.6 -14.14" rotation="0 -45 0" width="16" height="9"></a-video>
+    <a-video src="#my-video" position="0 1.6 -20" rotation="0 0 0" width="16" height="9"></a-video>
+    <a-video src="#second-video" position="-14.14 1.6 -14.14" rotation="0 45 0" width="16" height="9"></a-video>
+    <a-video src="#my-video" position="-20 1.6 0" rotation="0 90 0" width="16" height="9"></a-video>
+    <a-video src="#second-video" position="-14.14 1.6 14.14" rotation="0 135 0" width="16" height="9"></a-video>
+ 
+        <a-sky src="#background-image"></a-sky>
 
         <!-- Kamera i rig kamery dla nawigacji -->
         <a-entity id="cameraRig">
-            <a-camera look-controls enabled="true" position="0 1.6 0"></a-camera>
+            <a-camera look-controls enabled="true" position="0 1.6 -10" rotation="0 90 0"></a-camera>
         </a-entity>
         <!-- Światło -->
         <a-light type="ambient" color="#555"></a-light>
