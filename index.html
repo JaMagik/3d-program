@@ -2,97 +2,53 @@
 <html>
 <head>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-
-
-    <style>
-    
-    </style>
 </head>
 <body>
     <a-scene>
-        <!-- Ustawienie tła i podłogi -->
-        <a-sky color="#ECECEC"></a-sky>
-        <a-plane position="0 0 0" rotation="-90 0 0" width="500" height="500" color="#7BC8A4"></a-plane>
-
         <!-- Sekcja zasobów -->
         <a-assets timeout="3600000">
-            <a-asset-item id="solar-panel-model" src="Panel.gltf"></a-asset-item>
-            <video id="my-video" src="Christ2.mp4" autoplay loop muted></video>
-            <video id="second-video" src="Las1.mp4" autoplay loop muted></video>
-            <img id="background-image" src="viev.jpg">
+            <!-- Dodaj tła dla różnych "światów" -->
+            <img id="background-1" src="sky.jpeg">
+            <img id="background-2" src="view1.jpg">
+            <img id="background-3" src="viev.jpg">
+            <!-- Miniatury tła -->
+            <img id="thumbnail-2" src="thumbnail_view1.jpg">
+            <img id="thumbnail-3" src="thumbnail_viev.jpg">
         </a-assets>
 
-        <!-- Punkty nawigacyjne -->
-        <a-ring position="-50 0.5 -50" radius-inner="0.5" radius-outer="1" color="#29B6F6" class="clickable"></a-ring>
-        <a-ring position="50 0.5 -50" radius-inner="0.5" radius-outer="1" color="#FFC107" class="clickable"></a-ring>
+        <!-- Tło sferyczne, które będzie zmieniane -->
+        <a-sky id="main-sky" src="#background-1"></a-sky>
 
-        <!-- Model panelu słonecznego -->
-        <a-entity gltf-model="#solar-panel-model" position="50 0 50" scale="0.1 0.1 0.1"></a-entity>
-        
-        <!-- Wideo -->
-        <a-video src="#my-video" position="0 1.6 20" rotation="0 180 0" width="16" height="9"></a-video>
-    <a-video src="#second-video" position="14.14 1.6 14.14" rotation="0 -135 0" width="16" height="9"></a-video>
-    <a-video src="#my-video" position="20 1.6 0" rotation="0 -90 0" width="16" height="9"></a-video>
-    <a-video src="#second-video" position="14.14 1.6 -14.14" rotation="0 -45 0" width="16" height="9"></a-video>
-    <a-video src="#my-video" position="0 1.6 -20" rotation="0 0 0" width="16" height="9"></a-video>
-    <a-video src="#second-video" position="-14.14 1.6 -14.14" rotation="0 45 0" width="16" height="9"></a-video>
-    <a-video src="#my-video" position="-20 1.6 0" rotation="0 90 0" width="16" height="9"></a-video>
-    <a-video src="#second-video" position="-14.14 1.6 14.14" rotation="0 135 0" width="16" height="9"></a-video>
- 
-        <a-sky src="#background-image"></a-sky>
+        <!-- Miniatury tła jako klikalne obrazy -->
+        <a-image position="0 1.5 -3" src="#thumbnail-2" class="clickable" data-background="#background-2" data-clicked="false"></a-image>
+        <a-image position="3 1.5 -3" src="#thumbnail-3" class="clickable" data-background="#background-3" data-clicked="false"></a-image>
 
-        <!-- Kamera i rig kamery dla nawigacji -->
-        <a-entity id="cameraRig">
-            <a-camera look-controls enabled="true" position="0 1.6 -10" rotation="0 90 0"></a-camera>
-        </a-entity>
-        <!-- Światło -->
-        <a-light type="ambient" color="#555"></a-light>
-        <a-light type="point" intensity="2" position="0 4 0"></a-light>
+        <!-- Kamera z atrybutem cursor -->
+        <a-camera cursor="rayOrigin: mouse">
+        </a-camera>
     </a-scene>
 
     <script>
-        // Dodajemy obsługę kliknięcia dla punktów nawigacyjnych
-        var cameraRig = document.getElementById('cameraRig');
+        document.addEventListener('DOMContentLoaded', function () {
+            var clickableItems = document.querySelectorAll('.clickable');
+            clickableItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    var sky = document.getElementById('main-sky');
+                    var isClicked = this.getAttribute('data-clicked') === 'true';
 
-// Funkcja do włączania/wyłączania kontroli kamery
-function toggleCameraControls(enable) {
-    cameraRig.setAttribute('look-controls', 'enabled', enable);
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    var videoEl = document.querySelector('#my-video');
-    if (videoEl) {
-        videoEl.play();
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    var videoEl = document.querySelector('#second-video');
-    if (videoEl) {
-        videoEl.play();
-    }
-});
-
-// Obsługa kliknięcia przycisku play
-document.querySelector('#playButton').addEventListener('click', function () {
-    var videoEl = document.querySelector('#my-video');
-    if (videoEl) {
-        videoEl.play();
-        toggleCameraControls(true);
-    }
-});
-
-
-// Wyłączenie kontroli kamery, gdy kursor znajduje się nad przyciskiem
-document.querySelector('#playButton').addEventListener('mouseenter', function() {
-    toggleCameraControls(false);
-});
-
-// Włączenie kontroli kamery, gdy kursor opuszcza przycisk
-document.querySelector('#playButton').addEventListener('mouseleave', function() {
-    toggleCameraControls(true);
-});
-
+                    if (isClicked) {
+                        // Jeśli już kliknięto, powróć do pierwotnego tła
+                        sky.setAttribute('src', '#background-1');
+                        this.setAttribute('data-clicked', 'false');
+                    } else {
+                        // Zmiana tła sferycznego na kliknięty obraz
+                        var newBackground = this.getAttribute('data-background');
+                        sky.setAttribute('src', newBackground);
+                        this.setAttribute('data-clicked', 'true');
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
