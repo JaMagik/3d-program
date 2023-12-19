@@ -16,8 +16,6 @@
             <img id="thumbnail-3" src="s1 (2).png">
             <video id="lions-video" src="https://drive.google.com/file/d/1pfLgRN4ZPT1y1UgC880W3b4aRvMQvnTj/view?usp=sharing" autoplay loop="true" muted="true"></video>
             <img id="thumbnail-4" src="drone.jpg">
-
-
         </a-assets>
 
         <!-- Tło sferyczne, które będzie zmieniane -->
@@ -31,15 +29,13 @@
         <a-image position="3 1.5 0" rotation="0 -90 0" src="#thumbnail-3" class="clickable" data-background="#background-3" data-clicked="false"></a-image>
         <a-image position="2 1.5 3" rotation="0 -135 0" src="#thumbnail-2" class="clickable" data-background="#background-2" data-clicked="false"></a-image>
         <a-image position="0 1.5 4" rotation="0 180 0" src="#thumbnail-3" class="clickable" data-background="#background-3" data-clicked="false"></a-image>
-        <!-- Możesz kontynuować dodawanie więcej obrazów dla pełnego okręgu -->
 
-        <a-entity oculus-touch-controls="hand: left"></a-entity>  
-        <a-entity oculus-touch-controls="hand: right"></a-entity>
-
+        <!-- Kontrolery Oculus Touch -->
+        <a-entity oculus-touch-controls="hand: left" raycaster="objects: .clickable"></a-entity>
+        <a-entity oculus-touch-controls="hand: right" raycaster="objects: .clickable"></a-entity>
 
         <!-- Kamera z atrybutem cursor -->
-        <a-camera cursor="rayOrigin: mouse">
-        </a-camera>
+        <a-camera cursor="rayOrigin: mouse"></a-camera>
     </a-scene>
 
     <script>
