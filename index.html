@@ -2,6 +2,8 @@
 <html>
 <head>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script>
+
 </head>
 <body>
     <a-scene>
@@ -33,6 +35,10 @@
         <!-- Kontrolery Oculus Touch -->
         <a-entity oculus-touch-controls="hand: left" raycaster="objects: .clickable"></a-entity>
         <a-entity oculus-touch-controls="hand: right" raycaster="objects: .clickable"></a-entity>
+        <a-entity movement-controls="controls: oculus-touch-controls" position="0 1.6 0">
+            <a-camera></a-camera>
+        </a-entity>
+        
 
         <!-- Kamera z atrybutem cursor -->
         <a-camera cursor="rayOrigin: mouse"></a-camera>
