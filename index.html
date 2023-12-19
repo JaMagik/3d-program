@@ -35,8 +35,8 @@
         <!-- Kontrolery Oculus Touch -->
         <a-entity oculus-touch-controls="hand: left" raycaster="objects: .clickable"></a-entity>
         <a-entity oculus-touch-controls="hand: right" raycaster="objects: .clickable"></a-entity>
-        <a-entity movement-controls="controls: oculus-touch-controls" position="0 1.6 0">
-            <a-camera></a-camera>
+        <a-entity movement-controls="controls: oculus-touch-controls" position="0 0 0">
+            <a-camera cursor="rayOrigin: mouse"></a-camera>
         </a-entity>
          
         <a-asset-item id="oculus-touch-left" src="https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-left.obj"></a-asset-item>
@@ -44,7 +44,6 @@
         
 
         <!-- Kamera z atrybutem cursor -->
-        <a-camera cursor="rayOrigin: mouse"></a-camera>
     </a-scene>
 
     <script>
