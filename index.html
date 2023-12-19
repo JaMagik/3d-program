@@ -68,6 +68,29 @@
                 });
             });
         });
+
+        AFRAME.registerComponent('custom-movement', {
+  schema: {
+    speed: {type: 'number', default: 0.1}
+  },
+
+  init: function () {
+    this.el.addEventListener('thumbstickmoved', this.onMove.bind(this));
+  },
+
+  onMove: function (evt) {
+    var direction = this.el.getAttribute('camera').rotation;
+    var velocity = this.data.speed;
+    var movement = new THREE.Vector3();
+
+    // Przykład ruchu do przodu/tyłu
+    movement.z = Math.cos((direction.y + 90) * Math.PI / 180) * velocity * evt.detail.y;
+    movement.x = Math.sin((direction.y + 90) * Math.PI / 180) * velocity * evt.detail.y;
+
+    this.el.object3D.position.add(movement);
+  }
+});
+
     </script>
 </body>
 </html>
