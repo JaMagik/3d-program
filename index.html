@@ -33,8 +33,8 @@
         <a-image position="0 1.5 4" rotation="0 180 0" src="#thumbnail-3" class="clickable" data-background="#background-3" data-clicked="false"></a-image>
 
         <!-- Kontrolery Oculus Touch -->
-        <a-entity oculus-touch-controls="hand: left" raycaster="objects: .clickable"></a-entity>
-        <a-entity oculus-touch-controls="hand: right" raycaster="objects: .clickable"></a-entity>
+        <a-entity oculus-touch-controls="hand: left" thumbstick-logging></a-entity>
+<a-entity oculus-touch-controls="hand: right" thumbstick-logging></a-entity>
         <a-entity movement-controls="controls: oculus-touch-controls" position="0 0 0">
             <a-camera cursor="rayOrigin: mouse"></a-camera>
         </a-entity>
@@ -47,6 +47,19 @@
     </a-scene>
 
     <script>
+
+AFRAME.registerComponent('thumbstick-logging',{
+  init: function () {
+    this.el.addEventListener('thumbstickmoved', this.logThumbstick);
+  },
+  logThumbstick: function (evt) {
+    if (evt.detail.y > 0.95) { console.log("DOWN"); }
+    if (evt.detail.y < -0.95) { console.log("UP"); }
+    if (evt.detail.x < -0.95) { console.log("LEFT"); }
+    if (evt.detail.x > 0.95) { console.log("RIGHT"); }
+  }
+});
+        
         document.addEventListener('DOMContentLoaded', function () {
             var clickableItems = document.querySelectorAll('.clickable');
             clickableItems.forEach(function(item) {
